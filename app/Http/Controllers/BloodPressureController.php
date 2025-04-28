@@ -9,20 +9,46 @@ use Barryvdh\DomPDF\Facade\PDF;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Routing\Controller as BaseController;
 
-class BloodPressureController extends Controller
+class BloodPressureController extends BaseController
 {
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     
-    public function index()
+    public function index(Request $request)
     {
-        $readings = Auth::user()->bloodPressureReadings()
-                              ->orderBy('reading_date', 'desc')
-                              ->orderBy('reading_time', 'desc')
-                              ->paginate(10);
+        $query = Auth::user()->bloodPressureReadings()
+                        ->orderBy('reading_date', 'desc')
+                        ->orderBy('reading_time', 'desc');
+        
+        // Handle search
+        if ($request->has('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                // Search in notes
+                $q->where('note', 'like', '%' . $search . '%')
+                // Search by systolic value
+                ->orWhere('systolic', 'like', $search . '%')
+                // Search by diastolic value
+                ->orWhere('diastolic', 'like', $search . '%')
+                // Search by date
+                ->orWhere('reading_date', 'like', '%' . $search . '%');
+            });
+        }
+        
+        // Filter by date range
+        if ($request->has('from_date') && $request->from_date) {
+            $query->where('reading_date', '>=', $request->from_date);
+        }
+        
+        if ($request->has('to_date') && $request->to_date) {
+            $query->where('reading_date', '<=', $request->to_date);
+        }
+        
+        $readings = $query->paginate(10);
         
         return view('blood-pressure.index', compact('readings'));
     }
-    
     public function create()
     {
         return view('blood-pressure.create');

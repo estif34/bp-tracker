@@ -13,7 +13,6 @@ use App\Http\Controllers\BloodPressureController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -29,6 +28,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/blood-pressure/guide', [BloodPressureController::class, 'guide'])->name('blood-pressure.guide');
     Route::get('/blood-pressure/export/pdf', [BloodPressureController::class, 'exportPdf'])->name('blood-pressure.export.pdf');
     Route::get('/blood-pressure/export/csv', [BloodPressureController::class, 'exportCsv'])->name('blood-pressure.export.csv');
+    Route::get('/blood-pressure/{bloodPressureReading}/edit', [BloodPressureController::class, 'edit'])->name('blood-pressure.edit');
+    Route::put('/blood-pressure/{bloodPressureReading}', [BloodPressureController::class, 'update'])->name('blood-pressure.update');
+    Route::delete('/blood-pressure/{bloodPressureReading}', [BloodPressureController::class, 'destroy'])->name('blood-pressure.destroy');
     Route::resource('blood-pressure', BloodPressureController::class);
 });
 
