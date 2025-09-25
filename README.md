@@ -1,5 +1,5 @@
 # Bp-tracker: A Blood Pressure and vitals tracking web application
-[bp-tracker](https://blood-pressure-tracker-main-6jl9pj.laravel.cloud/)
+[Bp-Tracker](https://blood-pressure-tracker-main-6jl9pj.laravel.cloud/)
 
 ![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
 ## Description
