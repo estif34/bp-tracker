@@ -3,6 +3,7 @@
 ![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
 ## Description
 Bp-Tracker is a blood pressure and other vitals tracking web application developed using Laravel. It has features such as a dashboard to view last readings, charts to view trends of the readings, export option.
+[Bp-Tracker](https://blood-pressure-tracker-main-6jl9pj.laravel.cloud/)
 
 ## Prerequisites
 - PHP (>= 8.2)
