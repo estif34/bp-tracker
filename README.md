@@ -28,7 +28,7 @@ Bp-Tracker is a blood pressure and other vitals tracking web application develop
    ```bash
    copy .env.example .env
    ```
-   - Configure the .env file with your database and application settings.
+   - Configure the .env file with your database, mail and application settings.
 
 4. Generate the application key:
    ```bash
